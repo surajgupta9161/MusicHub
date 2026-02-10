@@ -15,14 +15,18 @@ const Createmusic = () => {
           <h2 className='text-xl font-bold mb-4 text-center'>Create Post</h2>
 
           <form className='flex flex-col gap-3'>
-            <label className='font-semibold'>Select File</label>
+            <label className='font-semibold' id='image'>
+              Select File
+            </label>
             <input
               type='file'
               accept='image/*'
               className='border p-2 rounded-lg'
               required
             />
-            <label className='font-semibold'>Title</label>
+            <label className='font-semibold' id='title'>
+              Title
+            </label>
             <input
               type='text'
               placeholder='Title'
