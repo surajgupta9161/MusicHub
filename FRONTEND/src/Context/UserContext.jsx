@@ -1,0 +1,40 @@
+import axios from 'axios'
+import { createContext, useEffect, useState } from 'react'
+
+export const UserContext = createContext()
+
+export const GetUser = ({ children }) => {
+  const [user, setUser] = useState(null)
+  const [error, setError] = useState(null)
+  const [isLogin, setIsLogin] = useState(false)
+
+  const getUser = async () => {
+    try {
+      const userResponse = await axios.get(
+        'http://localhost:3000/api/auth/getuser',
+        {
+          withCredentials: true
+        }
+      )
+      console.log(userResponse.data)
+      setUser(userResponse.data)
+      setIsLogin(true)
+      setError(null)
+    } catch (error) {
+      const msg = error.response?.data?.message || 'Something went wrong'
+      setUser(null)
+      setError(msg)
+      setIsLogin(false)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
+  return (
+    <UserContext.Provider
+      value={{ user, setUser, error, isLogin, setIsLogin, getUser }}
+    >
+      {children}
+    </UserContext.Provider>
+  )
+}

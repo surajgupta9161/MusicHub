@@ -1,8 +1,12 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../Context/UserContext'
+
 const Login = () => {
   const Navigate = useNavigate()
+  const { getUser, setIsLogin } = useContext(UserContext)
+
   const loginHandler = async e => {
     e.preventDefault()
     //login logic here
@@ -10,7 +14,6 @@ const Login = () => {
       email: e.target[0].value,
       password: e.target[1].value
     }
-    console.log(data)
     try {
       const resposne = await axios.post(
         'http://localhost:3000/api/auth/login',
@@ -22,8 +25,10 @@ const Login = () => {
           withCredentials: true
         }
       )
-      console.log(resposne)
+      // console.log(resposne)
       if (resposne.status === 200) {
+        // getUser()
+        setIsLogin(true)
         alert(resposne.data.message)
         Navigate('/')
       }
@@ -66,6 +71,9 @@ const Login = () => {
             >
               Login
             </button>
+            <p onClick={() => Navigate('/signup')}>
+              Don't have account? Signup
+            </p>
           </form>
         </div>
       </div>

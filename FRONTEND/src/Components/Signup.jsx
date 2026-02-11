@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { UserContext } from '../Context/UserContext'
+
 const Signup = () => {
   const Navigate = useNavigate()
+  const { setIsLogin, setUser } = useContext(UserContext)
+
   const signupHandler = async e => {
     e.preventDefault()
     //signup logic here
@@ -24,7 +28,9 @@ const Signup = () => {
       console.log(response)
       if (response.status === 201) {
         alert(response?.data?.message)
-        Navigate('/login')
+        setUser(response.data)
+        setIsLogin(true)
+        Navigate('/')
       }
     } catch (error) {
       console.log(error?.response?.data?.message) // 👈 backend message

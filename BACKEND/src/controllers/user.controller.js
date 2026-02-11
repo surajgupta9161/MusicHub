@@ -28,7 +28,13 @@ const userRegister = async (req, res) => {
       },
       process.env.JWT_SECRET
     )
-    res.cookie('userToken', token)
+    res.cookie('userToken', token, {
+      httpOnly: true, // JS access block
+      secure: false, // prod me true (https)
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    })
     // console.log(user)
     res.status(201).json({ message: 'User Created Successfully', user })
   } catch (error) {
@@ -56,7 +62,14 @@ const userLogin = async (req, res) => {
       },
       process.env.JWT_SECRET
     )
-    res.cookie('userToken', token)
+    res.cookie('userToken', token, {
+      httpOnly: true, // JS access block
+      secure: false, // prod me true (https)
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    })
+
     res.status(200).json({ message: 'User Login Successfully', user })
   } catch (error) {
     return res.status(500).json({ message: 'User Login Error' })
@@ -122,8 +135,25 @@ const musicGet = async (req, res) => {
 }
 
 const logout = (req, res) => {
-  res.clearCookie('userToken')
+  res.clearCookie('userToken', {
+    httpOnly: true,
+    secure: false, // ✅ local ke liye
+    sameSite: 'lax',
+    path: '/'
+  })
   res.status(200).json({ message: 'User Logout Successfully' })
+}
+
+const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password')
+    if (!user) {
+      return res.status(404).json({ message: 'User Not Found' })
+    }
+    return res.status(200).json({ message: 'User Fetch Successfully', user })
+  } catch (error) {
+    return res.status(500).json({ message: 'User Fetching Error' })
+  }
 }
 
 module.exports = {
@@ -131,5 +161,6 @@ module.exports = {
   userLogin,
   musicCreate,
   musicGet,
-  logout
+  logout,
+  getUser
 }

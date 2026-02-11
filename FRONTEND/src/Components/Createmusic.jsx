@@ -1,6 +1,20 @@
 import { useNavigate } from 'react-router-dom'
 const Createmusic = () => {
   const Navigate = useNavigate()
+
+  const createPostHandler = async e => {
+    e.preventDefault()
+    //create post logic here
+    try {
+      const formData = new FormData()
+      const fileInput = e.target.elements.image.files[0] // file select
+      if (!fileInput) return alert('Please select a file')
+      formData.append('file', fileInput) // key = 'file', value = File object
+
+      console.log(fileInput)
+    } catch (error) {}
+  }
+
   return (
     <div>
       <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
@@ -14,13 +28,14 @@ const Createmusic = () => {
 
           <h2 className='text-xl font-bold mb-4 text-center'>Create Post</h2>
 
-          <form className='flex flex-col gap-3'>
+          <form onSubmit={createPostHandler} className='flex flex-col gap-3'>
             <label className='font-semibold' id='image'>
               Select File
             </label>
             <input
               type='file'
-              accept='image/*'
+              accept='image/*,video/*'
+              name='image'
               className='border p-2 rounded-lg'
               required
             />
@@ -29,6 +44,7 @@ const Createmusic = () => {
             </label>
             <input
               type='text'
+              name='title'
               placeholder='Title'
               className='border p-2 rounded-lg'
             />
