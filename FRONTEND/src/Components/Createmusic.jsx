@@ -1,18 +1,53 @@
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { useState } from 'react'
+
 const Createmusic = () => {
   const Navigate = useNavigate()
+  const [isUploading, setIsUploading] = useState(false)
+
+  const MAX_SIZE = 20 * 1024 * 1024 // 20MB
 
   const createPostHandler = async e => {
     e.preventDefault()
-    //create post logic here
+    setIsUploading(true)
     try {
       const formData = new FormData()
-      const fileInput = e.target.elements.image.files[0] // file select
-      if (!fileInput) return alert('Please select a file')
-      formData.append('file', fileInput) // key = 'file', value = File object
+      const fileInput = e.target.elements.image.files[0]
+      const title = e.target.elements.title.value
 
-      console.log(fileInput)
-    } catch (error) {}
+      if (!fileInput) {
+        setIsUploading(false)
+        return alert('Please select a video file')
+      }
+
+      if (!fileInput.type.startsWith('video/')) {
+        setIsUploading(false)
+        return alert(' Only video files are allowed')
+      }
+
+      if (fileInput.size > MAX_SIZE) {
+        setIsUploading(false)
+        return alert(' Video size must be less than 20MB')
+      }
+
+      formData.append('image', fileInput) // backend expects 'image'
+      formData.append('title', title)
+
+      await axios.post('http://localhost:3000/api/auth/music', formData, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+
+      alert('✅ Video uploaded successfully')
+      setIsUploading(false)
+      Navigate('/')
+    } catch (error) {
+      setIsUploading(false)
+      alert(error?.response?.data?.message || 'Upload failed')
+    }
   }
 
   return (
@@ -29,33 +64,35 @@ const Createmusic = () => {
           <h2 className='text-xl font-bold mb-4 text-center'>Create Post</h2>
 
           <form onSubmit={createPostHandler} className='flex flex-col gap-3'>
-            <label className='font-semibold' id='image'>
-              Select File
-            </label>
+            <label className='font-semibold'>Select Video</label>
             <input
               type='file'
-              accept='image/*,video/*'
+              accept='video/*'
               name='image'
               className='border p-2 rounded-lg'
               required
             />
-            <label className='font-semibold' id='title'>
-              Title
-            </label>
+
+            <label className='font-semibold'>Title</label>
             <input
               type='text'
               name='title'
               placeholder='Title'
               className='border p-2 rounded-lg'
+              required
             />
 
             <button
+              disabled={isUploading}
               type='submit'
               className='bg-green-700 text-white py-2 rounded-lg font-semibold active:scale-95 cursor-pointer'
             >
               Create Post
             </button>
           </form>
+          <p className='text-green-800 mt-2 flex justify-center items-center font-semibold '>
+            {isUploading ? 'Uploading...' : ''}
+          </p>
         </div>
       </div>
     </div>

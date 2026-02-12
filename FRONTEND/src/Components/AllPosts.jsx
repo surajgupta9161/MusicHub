@@ -54,17 +54,30 @@ const AllPosts = () => {
       ) : (
         posts.map(post => (
           <div
-            className='music-card'
+            className='music-card relative'
             key={post._id}
             onClick={() => togglePlay(post._id)} // 🔥 tap anywhere
           >
             <video
-              className='music-video'
+              className='music-video '
               ref={el => (videoRefs.current[post._id] = el)}
             >
               <source src={post.image} type='video/mp4' />
+              {post.title}
             </video>
-            <h2 className='music-title'>{post.title}</h2>
+            <div className='flex items-center gap-3 absolute bottom-13 left-5'>
+              <img
+                className='h-9 w-9 rounded-full object-cover border-2 border-white'
+                src='https://i.pinimg.com/736x/62/01/0d/62010d848b790a2336d1542fcda51789.jpg'
+                alt='dp image'
+              />
+              <p className='text-white font-semibold text-sm'>
+                {post.artist.username}
+              </p>
+            </div>
+            <p className='music-title absolute bottom-3 left-6 '>
+              {post.title}
+            </p>
           </div>
         ))
       )}

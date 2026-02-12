@@ -96,7 +96,7 @@ const musicCreate = async (req, res) => {
     const { title } = req.body
     try {
       if (!req.file) {
-        return res.status(400).json({ message: 'file is required' })
+        return res.status(400).json({ message: 'Video file is required' })
       }
       const response = await uploadImage(req.file.buffer)
       console.log(response.url)
@@ -127,7 +127,8 @@ const musicCreate = async (req, res) => {
 
 const musicGet = async (req, res) => {
   try {
-    const musics = await Music.find()
+    const musics = await Music.find().populate('artist', 'username')
+    // console.log(musics)
     res.status(200).json({ message: 'Music Fetch Successfully', musics })
   } catch (error) {
     return res.status(500).json({ message: 'Music Fetching Error' })
