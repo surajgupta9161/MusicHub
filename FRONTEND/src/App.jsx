@@ -4,7 +4,7 @@ import NavBar from '../src/Components/NavBar'
 import { Route, Routes } from 'react-router-dom'
 import Signup from '../src/Components/Signup'
 import Login from '../src/Components/Login'
-import CreateMusic from '../src/Components/CreateMusic'
+import CreateMusic from '../src/Components/Createmusic'
 import { UserContext } from './Context/UserContext'
 
 const App = () => {
