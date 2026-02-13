@@ -102,9 +102,9 @@ const musicCreate = async (req, res) => {
     let decoded
     try {
       decoded = jwt.verify(token, process.env.JWT_SECRET)
-      if (decoded.role !== 'artist') {
-        return res.status(403).json({ message: 'Only Artist can Create Music' })
-      }
+      // if (decoded.role !== 'artist') {
+      //   return res.status(403).json({ message: 'Only Artist can Create Music' })
+      // }
     } catch (error) {
       return res.status(403).json({ message: 'Invalid Token' })
     }

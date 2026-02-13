@@ -32,6 +32,15 @@ const NavBar = () => {
     }
   }
 
+  const artistHandler = () => {
+    if (user.role === 'user') {
+      alert('Only Artist can Create Music!')
+      navigate('/')
+    } else {
+      navigate('/createmusic')
+    }
+  }
+
   return (
     <>
       <div className='bg-amber-400  p-3 sticky top-0 z-10 flex items-center justify-around gap-2'>
@@ -64,7 +73,7 @@ const NavBar = () => {
         )}
         {isLogin && (
           <button
-            onClick={() => navigate('/createmusic')}
+            onClick={artistHandler}
             className='bg-green-700 cursor-pointer active:scale-95 py-2 px-4 rounded-xl font-semibold'
           >
             Post
