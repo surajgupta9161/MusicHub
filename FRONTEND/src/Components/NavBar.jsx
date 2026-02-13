@@ -33,7 +33,7 @@ const NavBar = () => {
   }
 
   const artistHandler = () => {
-    if (user.role === 'user') {
+    if (user.role !== 'artist') {
       alert('Only Artist can Create Music!')
       navigate('/')
     } else {

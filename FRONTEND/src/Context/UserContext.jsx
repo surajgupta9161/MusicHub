@@ -9,14 +9,15 @@ export const GetUser = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false)
 
   const serverUrl = 'https://musichub-utha.onrender.com'
+  // const serverUrl = 'http://localhost:3000'
 
   const getUser = async () => {
     try {
       const userResponse = await axios.get(`${serverUrl}/api/auth/getuser`, {
         withCredentials: true
       })
-      console.log(userResponse.data)
-      setUser(userResponse.data)
+      // console.log(userResponse.data.user)
+      setUser(userResponse.data.user)
       setIsLogin(true)
       setError(null)
     } catch (error) {

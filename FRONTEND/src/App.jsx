@@ -9,7 +9,6 @@ import { UserContext } from './Context/UserContext'
 
 const App = () => {
   const { user, error, isLogin } = useContext(UserContext)
-  console.log(user)
 
   return (
     <div>

@@ -28,6 +28,9 @@ const userRegister = async (req, res) => {
       },
       process.env.JWT_SECRET
     )
+
+    //local machine
+
     // res.cookie('userToken', token, {
     //   httpOnly: true, // JS access block
     //   secure: false, // prod me true (https)
@@ -36,6 +39,7 @@ const userRegister = async (req, res) => {
     //   maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     // })
 
+    // for production
     res.cookie('userToken', token, {
       httpOnly: true,
       secure: true, // HTTPS only
@@ -52,10 +56,10 @@ const userRegister = async (req, res) => {
 }
 
 const userLogin = async (req, res) => {
-  const { email, username, password } = req.body
+  const { identifier, password } = req.body
   try {
     const user = await User.findOne({
-      $or: [{ email }, { username }]
+      $or: [{ email: identifier }, { username: identifier }]
     })
     if (!user) {
       return res.status(400).json({ message: 'User not Found!' })
@@ -71,6 +75,9 @@ const userLogin = async (req, res) => {
       },
       process.env.JWT_SECRET
     )
+
+    // for local machine
+
     // res.cookie('userToken', token, {
     //   httpOnly: true, // JS access block
     //   secure: false, // prod me true (https)
@@ -78,6 +85,8 @@ const userLogin = async (req, res) => {
     //   path: '/',
     //   maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     // })
+
+    // for production
 
     res.cookie('userToken', token, {
       httpOnly: true,

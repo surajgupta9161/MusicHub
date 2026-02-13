@@ -9,11 +9,15 @@ const Login = () => {
 
   const loginHandler = async e => {
     e.preventDefault()
-    //login logic here
+
+    const identifier = e.target[0].value // email OR username
+    const password = e.target[1].value
+
     const data = {
-      email: e.target[0].value,
-      password: e.target[1].value
+      identifier, // email/username dono ke liye common field
+      password
     }
+
     try {
       const resposne = await axios.post(`${serverUrl}/api/auth/login`, data, {
         headers: {
@@ -21,10 +25,9 @@ const Login = () => {
         },
         withCredentials: true
       })
-      // console.log(resposne)
+
       if (resposne.status === 200) {
-        // getUser()
-        setIsLogin(true)
+        await getUser()
         alert(resposne.data.message)
         Navigate('/')
       }
@@ -48,8 +51,8 @@ const Login = () => {
 
           <form onSubmit={loginHandler} className='flex flex-col gap-3'>
             <input
-              type='email'
-              placeholder='Email'
+              type='text'
+              placeholder='Email or Username'
               className='border p-2 rounded-lg'
               required
             />
