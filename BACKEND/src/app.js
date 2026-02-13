@@ -7,6 +7,7 @@ const musciRoute = require('./routes/music.route')
 const cors = require('cors')
 
 const app = express()
+app.set('trust proxy', 1)
 app.use(
   cors({
     // origin:'http://localhost:5173',
