@@ -36,7 +36,7 @@ const userRegister = async (req, res) => {
     //   maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     // })
 
-    res.cookie('token', token, {
+    res.cookie('userToken', token, {
       httpOnly: true,
       secure: true, // HTTPS only
       sameSite: 'none', // cross-site cookie allow
@@ -79,7 +79,7 @@ const userLogin = async (req, res) => {
     //   maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     // })
 
-    res.cookie('token', token, {
+    res.cookie('userToken', token, {
       httpOnly: true,
       secure: true, // HTTPS only
       sameSite: 'none', // cross-site cookie allow
