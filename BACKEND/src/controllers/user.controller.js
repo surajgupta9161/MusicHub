@@ -28,13 +28,22 @@ const userRegister = async (req, res) => {
       },
       process.env.JWT_SECRET
     )
-    res.cookie('userToken', token, {
-      httpOnly: true, // JS access block
-      secure: false, // prod me true (https)
-      sameSite: 'lax',
+    // res.cookie('userToken', token, {
+    //   httpOnly: true, // JS access block
+    //   secure: false, // prod me true (https)
+    //   sameSite: 'lax',
+    //   path: '/',
+    //   maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    // })
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: true, // HTTPS only
+      sameSite: 'none', // cross-site cookie allow
       path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     })
+
     // console.log(user)
     res.status(201).json({ message: 'User Created Successfully', user })
   } catch (error) {
@@ -62,10 +71,18 @@ const userLogin = async (req, res) => {
       },
       process.env.JWT_SECRET
     )
-    res.cookie('userToken', token, {
-      httpOnly: true, // JS access block
-      secure: false, // prod me true (https)
-      sameSite: 'lax',
+    // res.cookie('userToken', token, {
+    //   httpOnly: true, // JS access block
+    //   secure: false, // prod me true (https)
+    //   sameSite: 'lax',
+    //   path: '/',
+    //   maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    // })
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: true, // HTTPS only
+      sameSite: 'none', // cross-site cookie allow
       path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     })
