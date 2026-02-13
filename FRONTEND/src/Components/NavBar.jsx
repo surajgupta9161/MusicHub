@@ -7,13 +7,14 @@ import { UserContext } from '../Context/UserContext'
 const NavBar = () => {
   const navigate = useNavigate()
 
-  const { user, setUser, isLogin, setIsLogin } = useContext(UserContext)
+  const { user, setUser, isLogin, setIsLogin, serverUrl } =
+    useContext(UserContext)
 
   const logoutHandler = async () => {
     //logout logic here
     try {
       const response = await axios.post(
-        'http://localhost:3000/api/auth/logout',
+        `${serverUrl}/api/auth/logout`,
         {},
         { withCredentials: true }
       )

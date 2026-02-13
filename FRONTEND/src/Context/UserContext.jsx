@@ -8,14 +8,13 @@ export const GetUser = ({ children }) => {
   const [error, setError] = useState(null)
   const [isLogin, setIsLogin] = useState(false)
 
+  const serverUrl = 'https://musichub-utha.onrender.com'
+
   const getUser = async () => {
     try {
-      const userResponse = await axios.get(
-        'http://localhost:3000/api/auth/getuser',
-        {
-          withCredentials: true
-        }
-      )
+      const userResponse = await axios.get(`${serverUrl}/api/auth/getuser`, {
+        withCredentials: true
+      })
       console.log(userResponse.data)
       setUser(userResponse.data)
       setIsLogin(true)
@@ -32,7 +31,7 @@ export const GetUser = ({ children }) => {
   }, [])
   return (
     <UserContext.Provider
-      value={{ user, setUser, error, isLogin, setIsLogin, getUser }}
+      value={{ user, setUser, error, isLogin, setIsLogin, getUser, serverUrl }}
     >
       {children}
     </UserContext.Provider>

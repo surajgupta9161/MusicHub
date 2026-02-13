@@ -5,7 +5,7 @@ import { UserContext } from '../Context/UserContext'
 
 const Login = () => {
   const Navigate = useNavigate()
-  const { getUser, setIsLogin } = useContext(UserContext)
+  const { getUser, setIsLogin, serverUrl } = useContext(UserContext)
 
   const loginHandler = async e => {
     e.preventDefault()
@@ -15,16 +15,12 @@ const Login = () => {
       password: e.target[1].value
     }
     try {
-      const resposne = await axios.post(
-        'http://localhost:3000/api/auth/login',
-        data,
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          withCredentials: true
-        }
-      )
+      const resposne = await axios.post(`${serverUrl}/api/auth/login`, data, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      })
       // console.log(resposne)
       if (resposne.status === 200) {
         // getUser()

@@ -5,7 +5,7 @@ import { UserContext } from '../Context/UserContext'
 
 const Signup = () => {
   const Navigate = useNavigate()
-  const { setIsLogin, setUser } = useContext(UserContext)
+  const { setIsLogin, setUser, serverUrl } = useContext(UserContext)
 
   const signupHandler = async e => {
     e.preventDefault()
@@ -16,7 +16,7 @@ const Signup = () => {
     console.log(data)
     try {
       const response = await axios.post(
-        'http://localhost:3000/api/auth/register',
+        `${serverUrl}/api/auth/register`,
         data,
         {
           headers: {

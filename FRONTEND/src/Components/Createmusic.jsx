@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useState } from 'react'
+import { UserContext } from '../Context/UserContext'
+import { useContext } from 'react'
 
 const Createmusic = () => {
   const Navigate = useNavigate()
   const [isUploading, setIsUploading] = useState(false)
+  const { serverUrl } = useContext(UserContext)
 
   const MAX_SIZE = 20 * 1024 * 1024 // 20MB
 
@@ -34,7 +37,7 @@ const Createmusic = () => {
       formData.append('image', fileInput) // backend expects 'image'
       formData.append('title', title)
 
-      await axios.post('http://localhost:3000/api/auth/music', formData, {
+      await axios.post(`${serverUrl}/api/auth/music`, formData, {
         withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data'
