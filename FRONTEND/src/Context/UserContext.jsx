@@ -8,8 +8,8 @@ export const GetUser = ({ children }) => {
   const [error, setError] = useState(null)
   const [isLogin, setIsLogin] = useState(false)
 
-  // const serverUrl = 'https://musichub-utha.onrender.com'
-  const serverUrl = 'http://localhost:3000'
+  const serverUrl = 'https://musichub-utha.onrender.com'
+  // const serverUrl = 'http://localhost:3000'
 
   const getUser = async () => {
     try {
