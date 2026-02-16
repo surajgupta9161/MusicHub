@@ -6,6 +6,7 @@ import Signup from '../src/Components/Signup'
 import Login from '../src/Components/Login'
 import CreateMusic from '../src/Components/Createmusic'
 import { UserContext } from './Context/UserContext'
+import Profile from './Components/Profile'
 
 const App = () => {
   const { user, error, isLogin } = useContext(UserContext)
@@ -21,6 +22,7 @@ const App = () => {
           path='/createmusic'
           element={user ? <CreateMusic /> : <Login />}
         />
+        <Route path='/profile' element={user ? <Profile /> : <Login />} />
         <Route
           path='*'
           element={

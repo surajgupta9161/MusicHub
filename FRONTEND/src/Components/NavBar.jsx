@@ -43,7 +43,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className='bg-amber-400  p-3 sticky top-0 z-10 flex items-center justify-around gap-2'>
+      <div className='bg-[#111827] p-3 sticky -top-0.5 z-10 flex items-center justify-around gap-2'>
         <h1 className='bg-blue-300 py-2 px-4 rounded-xl font-semibold'>
           MusicHub
         </h1>
@@ -78,6 +78,20 @@ const NavBar = () => {
           >
             Post
           </button>
+        )}
+        {isLogin && (
+          // <button
+          //   onClick={artistHandler}
+          //   className='bg-green-700 cursor-pointer active:scale-95 py-2 px-4 rounded-xl font-semibold'
+          // >
+          //   Profile
+          // </button>
+          <img
+            onClick={() => navigate('/profile')}
+            className='h-9 w-9 rounded-full object-cover border-2 border-white'
+            src='https://i.pinimg.com/736x/62/01/0d/62010d848b790a2336d1542fcda51789.jpg'
+            alt='dp image'
+          />
         )}
       </div>
     </>

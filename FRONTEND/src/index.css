@@ -9,7 +9,9 @@ body {
   font-family: 'Poppins', sans-serif;
   /* background-color: #121212; */
 }
-
+body {
+  background-color: #282424;
+}
 .music-container {
   display: flex;
   flex-direction: column; /* one by one */
@@ -22,7 +24,7 @@ body {
   width: 100%;
   max-width: 420px;
   background: #111;
-  padding: 16px;
+  /* padding: 16px; */
   border-radius: 14px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   text-align: center;

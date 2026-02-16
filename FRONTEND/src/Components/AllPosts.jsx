@@ -51,9 +51,9 @@ const AllPosts = () => {
   return (
     <div className='music-container'>
       {isLoading ? (
-        <p>Loading...</p>
+        <p className=' text-white text-2xl '>Loading...</p>
       ) : posts.length === 0 ? (
-        <p>No music found.</p>
+        <p className=' text-white text-2xl '>No music found.</p>
       ) : (
         posts.map(post => (
           <div
