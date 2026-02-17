@@ -59,7 +59,8 @@ MusicHub
 │  
 ├── backend  
 │   ├── src  
-│   │   ├── controllers  
+│   │   ├── controllers 
+        ├── DB
 │   │   ├── models  
 │   │   ├── routes  
 │   │   ├── middleware  
