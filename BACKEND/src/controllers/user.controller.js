@@ -162,12 +162,18 @@ const musicGet = async (req, res) => {
 }
 
 const logout = (req, res) => {
-  res.clearCookie('userToken', {
-    httpOnly: true,
-    secure: false, // ✅ local ke liye
-    sameSite: 'lax',
-    path: '/'
-  })
+  // res.clearCookie('userToken', {
+  //   httpOnly: true,
+  //   secure: false, // ✅ local ke liye
+  //   sameSite: 'lax',
+  //   path: '/'
+  // })
+res.clearCookie('userToken', {
+  httpOnly: true,
+  secure: true,          // ✅ HTTPS only
+  sameSite: 'none',      // ✅ cross-site cookies allowed
+  path: '/',
+});
   res.status(200).json({ message: 'User Logout Successfully' })
 }
 
