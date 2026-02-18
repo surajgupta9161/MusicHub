@@ -1,28 +1,39 @@
 import React, { useContext } from 'react'
+import './Profile.css'
 import { UserContext } from '../Context/UserContext'
 import { useNavigate } from 'react-router-dom'
+import { IoMdArrowRoundBack } from 'react-icons/io'
+import MyMusic from '../Components/MyMusic'
+import Login from '../Components/Login'
 
 const Profile = () => {
-  const { user } = useContext(UserContext)
+  const { user, userMusic } = useContext(UserContext)
   const Navigate = useNavigate()
 
   return (
-    <div className='m-5 text-white'>
-      <div className='flex gap-10'>
-        <img
-          className='h-15 w-15 rounded-full object-cover border-2 border-white'
-          src='https://i.pinimg.com/736x/62/01/0d/62010d848b790a2336d1542fcda51789.jpg'
-          alt='dp image'
-        />
-        <h2 className='flex justify-center items-center text-2xl '>
-          {' '}
-          {user?.username}
-        </h2>
-        {user?.artist}
+    <div className='container-box mb-5'>
+      <div className='ml-5 mr-5 text-white '>
+        <p
+          className='text-2xl mb-2 mt-2 cursor-pointer'
+          onClick={() => Navigate('/')}
+        >
+          <IoMdArrowRoundBack />
+        </p>
+
+        <div className='flex gap-8'>
+          <img
+            className='h-15 w-15 rounded-full object-cover border-2 border-white'
+            src='https://i.pinimg.com/736x/62/01/0d/62010d848b790a2336d1542fcda51789.jpg'
+            alt='dp image'
+          />
+          <div>
+            <h2 className='flex text-xl '> {user?.username}</h2>
+            <h2 className='text-xl'> {userMusic?.length}</h2>
+            <p className='font-semibold'>Posts</p>
+          </div>
+        </div>
+        {user ? <MyMusic /> : <Login />}
       </div>
-      <h3 className='mt-10 text-2xl flex justify-center items-center'>
-        Comming soon!
-      </h3>
     </div>
   )
 }

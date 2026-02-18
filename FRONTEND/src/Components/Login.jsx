@@ -5,7 +5,7 @@ import { UserContext } from '../Context/UserContext'
 
 const Login = () => {
   const Navigate = useNavigate()
-  const { getUser, setIsLogin, serverUrl } = useContext(UserContext)
+  const { getUser, serverUrl } = useContext(UserContext)
 
   const loginHandler = async e => {
     e.preventDefault()

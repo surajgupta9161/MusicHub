@@ -4,26 +4,25 @@ import { useContext } from 'react'
 import { UserContext } from '../Context/UserContext'
 
 const AllPosts = () => {
-  const [posts, setPosts] = useState([])
+  // const [posts, setPosts] = useState([])
   const videoRefs = useRef({})
   const [currentPlaying, setCurrentPlaying] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const { serverUrl } = useContext(UserContext)
+  const { isLoading, posts } = useContext(UserContext)
 
-  useEffect(() => {
-    axios
-      .get(`${serverUrl}/api/auth/allMusic`)
-      .then(res => {
-        setPosts(res.data.musics)
-        setIsLoading(false)
-      })
-      .catch(err => {
-        setIsLoading(false)
-        return err.response
-          ? alert(err.response.data.message)
-          : alert('Error fetching music')
-      })
-  }, [])
+  // useEffect(() => {
+  //   axios
+  //     .get(`${serverUrl}/api/auth/allMusic`)
+  //     .then(res => {
+  //       setPosts(res.data.musics)
+  //       setIsLoading(false)
+  //     })
+  //     .catch(err => {
+  //       setIsLoading(false)
+  //       return err.response
+  //         ? alert(err.response.data.message)
+  //         : alert('Error fetching music')
+  //     })
+  // }, [])
 
   const togglePlay = id => {
     const video = videoRefs.current[id]
