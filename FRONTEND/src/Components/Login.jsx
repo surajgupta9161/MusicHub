@@ -1,15 +1,16 @@
 import axios from 'axios'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../Context/UserContext'
 
 const Login = () => {
   const Navigate = useNavigate()
   const { getUser, serverUrl } = useContext(UserContext)
+  const [isLog, setIsLog] = useState(false)
 
   const loginHandler = async e => {
     e.preventDefault()
-
+    setIsLog(true)
     const identifier = e.target[0].value // email OR username
     const password = e.target[1].value
 
@@ -29,10 +30,12 @@ const Login = () => {
       if (resposne.status === 200) {
         await getUser()
         alert(resposne.data.message)
+        setIsLog(false)
         Navigate('/')
       }
     } catch (err) {
       console.log(err.response.data.message) // 👈 backend message
+      setIsLog(false)
       alert(err.response.data.message)
     }
   }
@@ -65,6 +68,7 @@ const Login = () => {
             />
 
             <button
+              disabled={isLog}
               type='submit'
               className='bg-green-700 text-white py-2 cursor-pointer rounded-lg font-semibold active:scale-95'
             >
@@ -72,6 +76,9 @@ const Login = () => {
             </button>
             <p onClick={() => Navigate('/signup')}>
               Don't have account? Signup
+            </p>
+            <p className='text-green-800 mt-2 flex justify-center items-center font-semibold '>
+              {isLog && 'Logging in... Please wait'}
             </p>
           </form>
         </div>

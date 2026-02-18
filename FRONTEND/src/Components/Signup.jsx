@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { UserContext } from '../Context/UserContext'
@@ -6,14 +6,16 @@ import { UserContext } from '../Context/UserContext'
 const Signup = () => {
   const Navigate = useNavigate()
   const { setIsLogin, setUser, serverUrl } = useContext(UserContext)
+  const [isSignup, setIsSignup] = useState(false)
 
   const signupHandler = async e => {
     e.preventDefault()
     //signup logic here
+    setIsSignup(true)
     const formData = new FormData(e.target)
 
     const data = Object.fromEntries(formData.entries())
-    console.log(data)
+    // console.log(data)
     try {
       const response = await axios.post(
         `${serverUrl}/api/auth/register`,
@@ -25,14 +27,16 @@ const Signup = () => {
           withCredentials: true
         }
       )
-      console.log(response)
+      // console.log(response)
       if (response.status === 201) {
+        setIsSignup(false)
         alert(response?.data?.message)
         setUser(response.data)
         setIsLogin(true)
         Navigate('/')
       }
     } catch (error) {
+      setIsSignup(false)
       console.log(error?.response?.data?.message) // 👈 backend message
       alert(error?.response?.data?.message)
     }
@@ -80,11 +84,15 @@ const Signup = () => {
           </select>
 
           <button
+            disabled={isSignup}
             type='submit'
             className='bg-green-700 text-white py-2 cursor-pointer rounded-lg font-semibold active:scale-95'
           >
             Signup
           </button>
+          <p className='text-green-800 mt-2 flex justify-center items-center font-semibold '>
+            {isSignup && 'Please wait...'}
+          </p>
         </form>
       </div>
     </div>
