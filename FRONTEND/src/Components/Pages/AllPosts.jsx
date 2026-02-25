@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { useContext } from 'react'
-import { UserContext } from '../Context/UserContext'
+import { UserContext } from '../../Context/UserContext'
+import Loader from '../Loader/Loader'
 
 const AllPosts = () => {
   // const [posts, setPosts] = useState([])
@@ -50,7 +51,8 @@ const AllPosts = () => {
   return (
     <div className='music-container'>
       {isLoading ? (
-        <p className=' text-white text-2xl '>Loading...</p>
+        // <p className=' text-white text-2xl '>Loading...</p>
+        <Loader />
       ) : posts.length === 0 ? (
         <p className=' text-white text-2xl '>No music found.</p>
       ) : (

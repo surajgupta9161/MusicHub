@@ -29,8 +29,8 @@ app.use('/api/auth', musciRoute)
 const frontendPath = path.join(__dirname, '../dist')
 app.use(express.static(frontendPath))
 
-// SPA fallback (VERY IMPORTANT)
-app.get('*', (req, res) => {
+// SPA fallback (FIXED)
+app.use((req, res) => {
   res.sendFile(path.join(frontendPath, 'index.html'))
 })
 

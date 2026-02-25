@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../Context/UserContext'
+import { UserContext } from '../../Context/UserContext'
 
 const NavBar = () => {
   const navigate = useNavigate()

@@ -1,13 +1,15 @@
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useState } from 'react'
-import { UserContext } from '../Context/UserContext'
+import { UserContext } from '../../Context/UserContext'
 import { useContext } from 'react'
+import VideoUploader from '../Loader/VideoUploader'
 
 const Createmusic = () => {
   const Navigate = useNavigate()
   const [isUploading, setIsUploading] = useState(false)
   const { serverUrl } = useContext(UserContext)
+  const [isUploadProgress, setIsUploadProgress] = useState(false)
 
   const MAX_SIZE = 20 * 1024 * 1024 // 20MB
 
@@ -41,6 +43,12 @@ const Createmusic = () => {
         withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          let prcent = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          )
+          setIsUploadProgress(prcent)
         }
       })
 
@@ -55,6 +63,7 @@ const Createmusic = () => {
 
   return (
     <div>
+      {isUploading && <VideoUploader process={isUploadProgress} />}
       <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
         <div className='bg-white w-[90%] max-w-md p-6 rounded-xl relative'>
           <button
@@ -93,9 +102,9 @@ const Createmusic = () => {
               Create Post
             </button>
           </form>
-          <p className='text-green-800 mt-2 flex justify-center items-center font-semibold '>
+          {/* <p className='text-green-800 mt-2 flex justify-center items-center font-semibold '>
             {isUploading ? 'Uploading...' : ''}
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

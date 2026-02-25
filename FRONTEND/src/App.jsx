@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
-import AllPosts from '../src/Components/AllPosts'
-import NavBar from '../src/Components/NavBar'
+import AllPosts from '../src/Components/Pages/AllPosts'
+import NavBar from './Components/Layout/NavBar'
 import { Route, Routes } from 'react-router-dom'
-import Signup from '../src/Components/Signup'
-import Login from '../src/Components/Login'
-import CreateMusic from '../src/Components/Createmusic'
+import Signup from '../src/Components/Pages/Signup'
+import Login from '../src/Components/Pages/Login'
+import CreateMusic from '../src/Components/Pages/Createmusic'
 import { UserContext } from './Context/UserContext'
-import Profile from './Components/Profile'
+import Profile from './Components/Pages/Profile'
 
 const App = () => {
   const { user, error, isLogin } = useContext(UserContext)

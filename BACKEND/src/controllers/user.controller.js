@@ -28,22 +28,10 @@ const userRegister = async (req, res) => {
       },
       process.env.JWT_SECRET
     )
-
-    //local machine
-
-    // res.cookie('userToken', token, {
-    //   httpOnly: true, // JS access block
-    //   secure: false, // prod me true (https)
-    //   sameSite: 'lax',
-    //   path: '/',
-    //   maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-    // })
-
-    // for production
     res.cookie('userToken', token, {
       httpOnly: true,
-      secure: true, // HTTPS only
-      sameSite: 'none', // cross-site cookie allow
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     })
@@ -76,22 +64,10 @@ const userLogin = async (req, res) => {
       process.env.JWT_SECRET
     )
 
-    // for local machine
-
-    // res.cookie('userToken', token, {
-    //   httpOnly: true, // JS access block
-    //   secure: false, // prod me true (https)
-    //   sameSite: 'lax',
-    //   path: '/',
-    //   maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-    // })
-
-    // for production
-
     res.cookie('userToken', token, {
       httpOnly: true,
-      secure: true, // HTTPS only
-      sameSite: 'none', // cross-site cookie allow
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // cross-site cookie allow
       path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     })
@@ -162,17 +138,10 @@ const musicGet = async (req, res) => {
 }
 
 const logout = (req, res) => {
-  // res.clearCookie('userToken', {
-  //   httpOnly: true,
-  //   secure: false, // ✅ local ke liye
-  //   sameSite: 'lax',
-  //   path: '/'
-  // })
-
   res.clearCookie('userToken', {
     httpOnly: true,
-    secure: true, // ✅ HTTPS only
-    sameSite: 'none', // ✅ cross-site cookies allowed
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     path: '/'
   })
   res.status(200).json({ message: 'User Logout Successfully' })

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import './Profile.css'
-import { UserContext } from '../Context/UserContext'
+import { UserContext } from '../../Context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import { IoMdArrowRoundBack } from 'react-icons/io'
-import MyMusic from '../Components/MyMusic'
-import Login from '../Components/Login'
+import MyMusic from './MyMusic'
+import Login from './Login'
 
 const Profile = () => {
   const { user, userMusic } = useContext(UserContext)
