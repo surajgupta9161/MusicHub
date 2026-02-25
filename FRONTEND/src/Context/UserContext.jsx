@@ -14,8 +14,10 @@ export const GetUser = ({ children }) => {
   const [posts, setPosts] = useState([])
   const [postsLoaded, setPostsLoaded] = useState(false)
 
-  const serverUrl = 'https://musichub-utha.onrender.com'
-  // const serverUrl = 'http://localhost:3000'
+  const serverUrl =
+    import.meta.env.MODE === 'production'
+      ? 'https://musichub-2.onrender.com'
+      : 'http://localhost:3000'
 
   const getUser = async () => {
     try {
