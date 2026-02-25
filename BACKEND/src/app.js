@@ -5,14 +5,16 @@ const userRoute = require('./routes/user.route')
 const cookieParser = require('cookie-parser')
 const musciRoute = require('./routes/music.route')
 const cors = require('cors')
-const path = require('path')
 
 const app = express()
 app.set('trust proxy', 1)
+
 app.use(
   cors({
-    // origin: 'http://localhost:5173',
-    origin: 'https://musichub-2.onrender.com',
+    origin:
+      process.env.NODE_ENV === 'production'
+        ? 'https://musichub-2.onrender.com'
+        : 'http://localhost:5173',
     credentials: true
   })
 )
@@ -21,17 +23,8 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// ✅ API ROUTES ONLY
 app.use('/api/auth', userRoute)
 app.use('/api/auth', musciRoute)
-
-// React frontend serve
-// =======================
-const frontendPath = path.join(__dirname, '../dist')
-app.use(express.static(frontendPath))
-
-// SPA fallback (FIXED)
-app.use((req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'))
-})
 
 module.exports = app
