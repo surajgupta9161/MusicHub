@@ -16,7 +16,7 @@ export const GetUser = ({ children }) => {
 
   const serverUrl =
     import.meta.env.MODE === 'production'
-      ? 'https://musichub-2.onrender.com'
+      ? 'https://musichub-utha.onrender.com'
       : 'http://localhost:3000'
 
   const getUser = async () => {
