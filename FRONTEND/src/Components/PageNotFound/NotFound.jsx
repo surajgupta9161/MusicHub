@@ -1,4 +1,4 @@
-import notFoundGif from '../../Assets/Gifs/PageNotFound.gif'
+import notFoundGif from '../../Assets/Gifs/pageNotFound.gif'
 import { useNavigate } from 'react-router-dom'
 
 const PageNotFound = () => {
