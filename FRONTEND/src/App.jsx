@@ -7,6 +7,7 @@ import Login from '../src/Components/Pages/Login'
 import CreateMusic from '../src/Components/Pages/Createmusic'
 import { UserContext } from './Context/UserContext'
 import Profile from './Components/Pages/Profile'
+import PageNotFound from './Components/PageNotFound/NotFound'
 
 const App = () => {
   const { user, error, isLogin } = useContext(UserContext)
@@ -26,7 +27,9 @@ const App = () => {
         <Route
           path='*'
           element={
-            <h1 className='text-center mt-10 text-3xl'>404 Not Found</h1>
+            <h1 className='text-center mt-10 text-3xl'>
+              <PageNotFound />
+            </h1>
           }
         />
       </Routes>

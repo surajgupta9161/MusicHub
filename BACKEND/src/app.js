@@ -3,7 +3,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 const userRoute = require('./routes/user.route')
 const cookieParser = require('cookie-parser')
-const musciRoute = require('./routes/music.route')
+const musicRoute = require('./routes/music.route')
 const cors = require('cors')
 
 const app = express()
@@ -25,6 +25,6 @@ app.use(express.urlencoded({ extended: true }))
 
 // ✅ API ROUTES ONLY
 app.use('/api/auth', userRoute)
-app.use('/api/auth', musciRoute)
+app.use('/api/auth', musicRoute)
 
 module.exports = app
