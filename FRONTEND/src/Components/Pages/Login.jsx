@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../Context/UserContext'
+import LoginLoader from '../Loader/LogLoader'
 
 const Login = () => {
   const Navigate = useNavigate()
@@ -29,8 +30,8 @@ const Login = () => {
 
       if (resposne.status === 200) {
         await getUser()
-        alert(resposne.data.message)
         setIsLog(false)
+        alert(resposne.data.message)
         Navigate('/')
       }
     } catch (err) {
@@ -41,6 +42,7 @@ const Login = () => {
   }
   return (
     <div>
+      {isLog && <LoginLoader value={'Logging you in...'} />}
       <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
         <div className='bg-white w-[90%] max-w-md p-6 rounded-xl relative'>
           <button

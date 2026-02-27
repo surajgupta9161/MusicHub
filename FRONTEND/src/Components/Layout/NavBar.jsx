@@ -3,15 +3,16 @@ import React, { useState } from 'react'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../Context/UserContext'
+import LoginLoader from '../Loader/LogLoader'
 
 const NavBar = () => {
   const navigate = useNavigate()
-
   const { user, setUser, isLogin, setIsLogin, serverUrl } =
     useContext(UserContext)
-
+  const [isLogOut, setIsLogout] = useState(false)
   const logoutHandler = async () => {
     //logout logic here
+    setIsLogout(true)
     try {
       const response = await axios.post(
         `${serverUrl}/api/auth/logout`,
@@ -21,6 +22,7 @@ const NavBar = () => {
       if (response.status === 200) {
         setUser(null)
         setIsLogin(false)
+        setIsLogout(false)
         alert(response.data.message)
         navigate('/login')
       }
@@ -28,6 +30,7 @@ const NavBar = () => {
       const msg = error.response?.data?.message || 'Something went wrong'
       setUser(null)
       setIsLogin(false)
+      setIsLogout(false)
       alert(msg)
     }
   }
@@ -52,6 +55,7 @@ const NavBar = () => {
             onClick={() => navigate('/signup')}
             className='bg-green-700 cursor-pointer active:scale-95 py-2 px-4 rounded-xl font-semibold'
           >
+            {isLogOut && <LoginLoader value={'Logging Out...'} />}
             Signup
           </button>
         )}
