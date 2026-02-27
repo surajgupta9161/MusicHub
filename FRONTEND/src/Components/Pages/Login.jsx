@@ -79,9 +79,6 @@ const Login = () => {
             <p onClick={() => Navigate('/signup')}>
               Don't have account? Signup
             </p>
-            <p className='text-green-800 mt-2 flex justify-center items-center font-semibold '>
-              {isLog && 'Logging in... Please wait'}
-            </p>
           </form>
         </div>
       </div>
