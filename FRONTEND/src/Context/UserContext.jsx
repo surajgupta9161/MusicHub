@@ -27,6 +27,10 @@ export const GetUser = ({ children }) => {
       })
       // console.log(userResponse.data.user)
       setUser(userResponse.data.user)
+      toast('Welcome to Music World 🎵', {
+        duration: 4000,
+        icon: '👋'
+      })
       setIsLogin(true)
       setError(null)
     } catch (error) {
@@ -43,9 +47,19 @@ export const GetUser = ({ children }) => {
       const res = await axios.get(`${serverUrl}/api/auth/allMusic`)
       setPosts(res.data.musics)
       // ✅ Data aa gaya → toast
-      toast.error('sorry we are facing bandwidth error to load video ', {
-        duration: 4000
-      })
+      setTimeout(() => {
+        toast('sorry we are facing bandwidth error to load video 🎶', {
+          duration: 4000,
+          icon: '🎧',
+          style: {
+            background: '#020617',
+            color: '#38fdf8',
+            border: '1px solid #38fdf8',
+            fontWeight: '600'
+          }
+        })
+      }, 3000)
+
       setPostsLoaded(true)
       setIsLoading(false)
     } catch (err) {
