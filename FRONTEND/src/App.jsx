@@ -23,6 +23,28 @@ const App = () => {
         containerStyle={{
           top: '70px'
         }}
+        toastOptions={{
+          style: {
+            background: '#111827',
+            color: '#e5e7eb',
+            fontWeight: 600
+          },
+          success: {
+            style: {
+              color: '#22c55e'
+            }
+          },
+          error: {
+            style: {
+              color: '#ef4444'
+            }
+          },
+          loading: {
+            style: {
+              color: '#facc15'
+            }
+          }
+        }}
         reverseOrder={false}
       />
       <Routes>
