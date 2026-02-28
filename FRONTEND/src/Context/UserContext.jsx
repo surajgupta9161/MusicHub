@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { createContext, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
 export const UserContext = createContext()
 
@@ -41,6 +42,10 @@ export const GetUser = ({ children }) => {
     try {
       const res = await axios.get(`${serverUrl}/api/auth/allMusic`)
       setPosts(res.data.musics)
+      // ✅ Data aa gaya → toast
+      toast.error('sorry we are facing bandwidth error to load video ', {
+        duration: 4000
+      })
       setPostsLoaded(true)
       setIsLoading(false)
     } catch (err) {

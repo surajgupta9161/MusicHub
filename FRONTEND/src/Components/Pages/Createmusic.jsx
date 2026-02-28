@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { UserContext } from '../../Context/UserContext'
 import { useContext } from 'react'
 import VideoUploader from '../Loader/VideoUploader'
+import { toast } from 'react-hot-toast'
 
 const Createmusic = () => {
   const Navigate = useNavigate()
@@ -16,6 +17,9 @@ const Createmusic = () => {
   const createPostHandler = async e => {
     e.preventDefault()
     setIsUploading(true)
+
+    const toastId = toast.loading('uploading up...')
+
     try {
       const formData = new FormData()
       const fileInput = e.target.elements.image.files[0]
@@ -23,17 +27,19 @@ const Createmusic = () => {
 
       if (!fileInput) {
         setIsUploading(false)
-        return alert('Please select a video file')
+        return toast.error('Please select a video file', { id: toastId })
       }
 
       if (!fileInput.type.startsWith('video/')) {
         setIsUploading(false)
-        return alert(' Only video files are allowed')
+        return toast.error('Only Video file allowed', { id: toastId })
       }
 
       if (fileInput.size > MAX_SIZE) {
         setIsUploading(false)
-        return alert(' Video size must be less than 20MB')
+        return toast.error(' Video size must be less than 20MB', {
+          id: toastId
+        })
       }
 
       formData.append('image', fileInput) // backend expects 'image'
@@ -52,12 +58,14 @@ const Createmusic = () => {
         }
       })
 
-      alert('✅ Video uploaded successfully')
+      toast.success('✅ Video uploaded successfully', { id: toastId })
       setIsUploading(false)
       Navigate('/')
     } catch (error) {
       setIsUploading(false)
-      alert(error?.response?.data?.message || 'Upload failed')
+      toast.success(error?.response?.data?.message || 'Upload failed', {
+        id: toastId
+      })
     }
   }
 

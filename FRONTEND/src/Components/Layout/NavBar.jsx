@@ -4,15 +4,18 @@ import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../Context/UserContext'
 import LoginLoader from '../Loader/LogLoader'
-
+import { toast } from 'react-hot-toast'
 const NavBar = () => {
   const navigate = useNavigate()
   const { user, setUser, isLogin, setIsLogin, serverUrl } =
     useContext(UserContext)
   const [isLogOut, setIsLogout] = useState(false)
+
   const logoutHandler = async () => {
     //logout logic here
     setIsLogout(true)
+    const toastId = toast.loading('Logging Out...')
+
     try {
       const response = await axios.post(
         `${serverUrl}/api/auth/logout`,
@@ -20,26 +23,41 @@ const NavBar = () => {
         { withCredentials: true }
       )
       if (response.status === 200) {
+        toast.dismiss(toastId)
         setUser(null)
         setIsLogin(false)
         setIsLogout(false)
-        alert(response.data.message)
+        // alert(response.data.message)
+        toast.success(response.data.message || 'User Logout', { id: toastId })
         navigate('/login')
       }
     } catch (error) {
+      toast.dismiss(toastId)
       const msg = error.response?.data?.message || 'Something went wrong'
       setUser(null)
       setIsLogin(false)
       setIsLogout(false)
-      alert(msg)
+      toast.error(msg, { id: toastId })
     }
   }
 
   const artistHandler = () => {
+    const toastId = toast.loading('Creating Music...')
     if (user.role !== 'artist') {
-      alert('Only Artist can Create Music!')
+      toast.dismiss(toastId)
+      toast.error('Only Artist can Create Music!', {
+        id: toastId,
+        style: {
+          fontWeight: 600,
+          color: '#ff0000'
+        }
+      })
       navigate('/')
     } else {
+      toast.dismiss(toastId)
+      toast.success('Welcome Artist 🎵', {
+        id: toastId
+      })
       navigate('/createmusic')
     }
   }

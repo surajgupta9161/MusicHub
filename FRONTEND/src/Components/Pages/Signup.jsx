@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { UserContext } from '../../Context/UserContext'
+import LogLoader from '../Loader/LogLoader'
+import { toast } from 'react-hot-toast'
 
 const Signup = () => {
   const Navigate = useNavigate()
@@ -16,6 +18,7 @@ const Signup = () => {
 
     const data = Object.fromEntries(formData.entries())
     // console.log(data)
+    const toastId = toast.loading('Signing up...')
     try {
       const response = await axios.post(
         `${serverUrl}/api/auth/register`,
@@ -30,7 +33,10 @@ const Signup = () => {
       // console.log(response)
       if (response.status === 201) {
         setIsSignup(false)
-        alert(response?.data?.message)
+        // alert(response?.data?.message)
+        toast.success(response?.data?.message || 'Signup Successfull', {
+          id: toastId
+        })
         setUser(response.data)
         setIsLogin(true)
         Navigate('/')
@@ -38,11 +44,15 @@ const Signup = () => {
     } catch (error) {
       setIsSignup(false)
       console.log(error?.response?.data?.message) // 👈 backend message
-      alert(error?.response?.data?.message)
+      // alert(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message || 'Signup Failed', {
+        id: toastId
+      })
     }
   }
   return (
     <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
+      {isSignup && <LogLoader value={'Please wait...'} />}
       <div className='bg-white w-[90%] max-w-md p-6 rounded-xl relative'>
         <button
           onClick={() => Navigate('/')}
@@ -90,9 +100,6 @@ const Signup = () => {
           >
             Signup
           </button>
-          <p className='text-green-800 mt-2 flex justify-center items-center font-semibold '>
-            {isSignup && 'Please wait...'}
-          </p>
         </form>
       </div>
     </div>

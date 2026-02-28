@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import AllPosts from '../src/Components/Pages/AllPosts'
 import NavBar from './Components/Layout/NavBar'
 import { Route, Routes } from 'react-router-dom'
@@ -9,12 +9,22 @@ import { UserContext } from './Context/UserContext'
 import Profile from './Components/Pages/Profile'
 import PageNotFound from './Components/PageNotFound/NotFound'
 
+import { Toaster } from 'react-hot-toast'
+
 const App = () => {
   const { user, error, isLogin } = useContext(UserContext)
 
   return (
     <div>
       <NavBar />
+      {/* ✅ Global Toast System */}
+      <Toaster
+        position='top-right'
+        containerStyle={{
+          top: '70px'
+        }}
+        reverseOrder={false}
+      />
       <Routes>
         <Route path='/' element={<AllPosts />} />
         <Route path='/signup' element={<Signup />} />

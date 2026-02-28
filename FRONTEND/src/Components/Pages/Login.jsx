@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../Context/UserContext'
 import LoginLoader from '../Loader/LogLoader'
+import { toast } from 'react-hot-toast'
 
 const Login = () => {
   const Navigate = useNavigate()
@@ -20,6 +21,9 @@ const Login = () => {
       password
     }
 
+    // 🔄 loading toast
+    const toastId = toast.loading('Signing in...')
+
     try {
       const resposne = await axios.post(`${serverUrl}/api/auth/login`, data, {
         headers: {
@@ -31,18 +35,28 @@ const Login = () => {
       if (resposne.status === 200) {
         await getUser()
         setIsLog(false)
-        alert(resposne.data.message)
+        toast.dismiss(toastId)
+        // ✅ success toast (same toast update)
+        toast.success(resposne.data.message || 'Login successful 🎉', {
+          id: toastId
+        })
+        // alert(resposne.data.message)
         Navigate('/')
       }
     } catch (err) {
+      toast.dismiss(toastId)
       console.log(err.response.data.message) // 👈 backend message
       setIsLog(false)
-      alert(err.response.data.message)
+      // alert(err.response.data.message)
+      // ❌ loading toast close + error toast
+      toast.error(err.response?.data?.message || 'Login failed ❌', {
+        id: toastId
+      })
     }
   }
   return (
     <div>
-      {isLog && <LoginLoader value={'Logging you in...'} />}
+      {isLog && <LoginLoader value={'Authenticating...'} />}
       <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
         <div className='bg-white w-[90%] max-w-md p-6 rounded-xl relative'>
           <button
