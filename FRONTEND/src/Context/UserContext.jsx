@@ -43,12 +43,16 @@ export const GetUser = ({ children }) => {
 
   const getAllPosts = async () => {
     if (postsLoaded) return // 🔥 already fetched → skip
+    const loadingToast = toast.loading('Loading music & videos... 🎵')
     try {
-      const res = await axios.get(`${serverUrl}/api/auth/allMusic`)
+      const res = await axios.get(`${serverUrl}/api/auth/allMusic`, {
+        timeout: 15000
+      })
       setPosts(res.data.musics)
+      toast.dismiss(loadingToast)
       // ✅ Data aa gaya → toast
       setTimeout(() => {
-        toast('sorry we are facing bandwidth error to load video 🎶', {
+        toast('Some videos may load slowly due to bandwidth issues 📡', {
           duration: 4000,
           icon: '🎧',
           style: {
@@ -66,6 +70,31 @@ export const GetUser = ({ children }) => {
       setIsLoading(true)
       setPostsLoaded(true)
       console.log(err)
+      toast.dismiss(loadingToast)
+      let msg = 'Unable to load videos'
+      // 🌐 network error
+      if (!err.response) {
+        msg = 'Network is slow or disconnected 🌐'
+      }
+      // ⏱ timeout error
+      else if (err.code === 'ECONNABORTED') {
+        msg = 'Connection timeout. Network is too slow ⏳'
+      }
+      // 🎥 backend / video error
+      else if (err.response) {
+        msg = err.response.data?.message || 'Video fetch failed 🎥'
+      }
+
+      toast.error(msg, {
+        duration: 5000,
+        icon: '🚫',
+        style: {
+          background: '#020617',
+          color: '#ff6b6b',
+          border: '1px solid #ff6b6b',
+          fontWeight: '600'
+        }
+      })
     }
   }
 
