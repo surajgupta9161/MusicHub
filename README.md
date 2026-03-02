@@ -20,18 +20,21 @@ MusicHub is a full-stack MERN CRUD web application where users can create an acc
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - React.js
 - Tailwind CSS
 - Axios
 - Context API
 
 ### Backend
+
 - Node.js
 - Express.js
 - MongoDB
 - Mongoose
 
 ### Authentication & Security
+
 - JSON Web Token (JWT)
 - Role-Based Access Control (RBAC) – In Development
 
@@ -40,16 +43,18 @@ MusicHub is a full-stack MERN CRUD web application where users can create an acc
 ## 📡 API Routes
 
 ### 🔐 Authentication Routes
+
 POST /api/auth/register  
-POST /api/auth/login  
+POST /api/auth/login
 
 ### 🎵 Music Routes
+
 POST /api/auth/createmusic  
-GET /api/auth/getMusics  
+GET /api/auth/getMusics
 
 🚧 Under Development:
 PUT /api/auth/updatemusic/:id  
-DELETE /api/auth/deletemusic/:id  
+DELETE /api/auth/deletemusic/:id
 
 ---
 
@@ -57,29 +62,62 @@ DELETE /api/auth/deletemusic/:id
 
 MusicHub  
 │  
-├── backend  
-│   ├── src  
-│   │   ├── controllers 
-        ├── DB
-│   │   ├── models  
-│   │   ├── routes  
-│   │   ├── middleware  
-│   │   └── services  
-│   │  
-│   ├── server.js  
-│   └── .env  
+├── Backend  
+│ ├── src  
+│ │ ├── controllers
+| | ├── DB
+│ │ ├── models  
+│ │ ├── routes  
+│ │ ├── middleware  
+│ │ └── services  
+│ │  
+│ ├── server.js  
+│ └── .env  
 │  
-├── frontend  
-│   ├── src  
-│   │   ├── components  
-│   │   ├── context  
-│   │   ├── services  
-│   │   ├── App.jsx  
-│   │   └── main.jsx  
-│   │  
-│   └── .env  
-│  
-└── README.md  
+├──FRONTEND/
+| │
+| ├── dist/
+| ├── node_modules/
+| ├── public/
+| │
+| ├── src/
+| │ │
+| │ ├── Assets/
+| │ │
+| │ ├── Components/
+| │ │ │
+| │ │ ├── Layout/
+| │ │ │ └── NavBar.jsx
+| │ │ │
+| │ │ ├── Loader/
+| │ │ │ ├── LogLoader.css
+| │ │ │ ├── LogLoader.jsx
+| │ │ │ ├── VideoUploader.css
+| │ │ │ └── VideoUploader.jsx
+| │ │ │
+| │ │ ├── PageNotFound/
+| │ │ │ └── NotFound.jsx
+| │ │ │
+| │ │ └── Pages/
+| │ │ ├── AllPosts.jsx
+| │ │ ├── Createmusic.jsx
+| │ │ ├── Login.jsx
+| │ │ ├── MyMusic.jsx
+| │ │ ├── Profile.css
+| │ │ ├── Profile.jsx
+| │ │ └── Signup.jsx
+| │ │
+| │ ├── Context/
+| │ │ └── UserContext.jsx
+| │ │
+| │ ├── Utils/
+| │ │ └── ImageKitError.js
+| │ │
+| │ ├── App.jsx # Main App component
+| │ ├── index.css # Global styles
+| │ └── main.jsx # App entry point
+| │
+└── README.md # Project documentation
 
 ---
 
@@ -87,35 +125,35 @@ MusicHub
 
 ### 1️⃣ Clone Repository
 
-git clone https://github.com/surajgupta9161/MusicHub.git  
+git clone https://github.com/surajgupta9161/MusicHub.git
 
 ---
 
 ### 2️⃣ Backend Setup
 
 cd backend  
-npm install  
+npm install
 
 Create `.env` file inside backend folder:
 
 PORT=3000  
 MONGO_URI=your_mongodb_connection_string  
-JWT_SECRET=your_secret_key  
+JWT_SECRET=your_secret_key
 
 Run backend server:
 
-nodemon server.js  
+nodemon server.js
 
 ---
 
 ### 3️⃣ Frontend Setup
 
 cd frontend  
-npm install  
+npm install
 
 Run frontend development server:
 
-npm run dev  
+npm run dev
 
 ---
 
@@ -140,7 +178,7 @@ This project is under active development.
 ## 👨‍💻 Author
 
 Suraj Gupta  
-GitHub: https://github.com/surajgupta9161  
+GitHub: https://github.com/surajgupta9161
 
 ---
 
