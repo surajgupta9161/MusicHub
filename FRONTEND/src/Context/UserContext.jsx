@@ -46,7 +46,7 @@ export const GetUser = ({ children }) => {
     const loadingToast = toast.loading('Loading music & videos... 🎵')
     try {
       const res = await axios.get(`${serverUrl}/api/auth/allMusic`, {
-        timeout: 15000
+        timeout: 55000
       })
       setPosts(res.data.musics)
       toast.dismiss(loadingToast)
