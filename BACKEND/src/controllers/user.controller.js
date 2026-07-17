@@ -42,13 +42,16 @@ const userRegister = async (req, res) => {
     return res.status(500).json({ message: 'User Creating Error' })
   }
 }
-
+/**
+ * -User Login /api/auth/login
+ */
 const userLogin = async (req, res) => {
   const { identifier, password } = req.body
   try {
     const user = await User.findOne({
       $or: [{ email: identifier }, { username: identifier }]
     })
+
     if (!user) {
       return res.status(400).json({ message: 'User not Found!' })
     }
