@@ -10,6 +10,7 @@ import Profile from './Components/Pages/Profile'
 import PageNotFound from './Components/PageNotFound/NotFound'
 
 import { Toaster } from 'react-hot-toast'
+import UpdateMusic from './Components/Pages/UpdateMusic'
 
 const App = () => {
   const { user, error, isLogin } = useContext(UserContext)

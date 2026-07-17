@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { createContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+// const UpdateMusic = require('./Pages/UpdateMusic')
+import UpdateMusic from '../Components/Pages/UpdateMusic'
 
 export const UserContext = createContext()
 
@@ -123,7 +125,8 @@ export const GetUser = ({ children }) => {
         posts,
         postsLoaded,
         isLoading,
-        userMusic
+        userMusic,
+        setPosts
       }}
     >
       {children}

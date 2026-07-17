@@ -1,10 +1,14 @@
 import { useContext, useState, useRef } from 'react'
 import { UserContext } from '../../Context/UserContext'
+import UpdateMusic from './UpdateMusic'
 
 const MyMusic = () => {
   const { user, userMusic } = useContext(UserContext)
   const [activeVideo, setActiveVideo] = useState(null)
   const videoRefs = useRef({})
+
+  const [openEdit, setOpenEdit] = useState(false)
+  const [selectedMusic, setSelectedMusic] = useState(null)
 
   if (!user) return <p>Loading user...</p>
 
@@ -46,6 +50,15 @@ const MyMusic = () => {
               key={m._id}
               className='bg-[#070a11ec]  max-w-80 max-h-150 p-3 rounded-lg shadow-md'
             >
+              <button
+                onClick={() => {
+                  setSelectedMusic(m)
+                  setOpenEdit(true)
+                }}
+                className='px-3 py-1.5 text-sm rounded-md border border-zinc-600 bg-zinc-900 text-zinc-100 hover:bg-zinc-800 hover:border-zinc-400 transition-all duration-200 cursor-pointer'
+              >
+                Edit
+              </button>
               {/* 🎬 Video */}
               <video
                 ref={el => (videoRefs.current[m._id] = el)}
@@ -61,6 +74,9 @@ const MyMusic = () => {
             </div>
           ))}
         </div>
+      )}
+      {openEdit && (
+        <UpdateMusic music={selectedMusic} onClose={() => setOpenEdit(false)} />
       )}
     </div>
   )
