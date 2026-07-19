@@ -19,7 +19,7 @@ const updateMusic = async (req, res) => {
     }
     await musics[0].save()
 
-    res.status(200).json({ message: 'Music Fetch Successfully', musics })
+    res.status(200).json({ message: 'Title update Successfully', musics })
   } catch (error) {
     return res.status(500).json({ message: 'Music Fetching Error' })
   }
