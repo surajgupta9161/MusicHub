@@ -44,11 +44,11 @@ const MyMusic = () => {
       {userMusic?.length === 0 ? (
         <p className='text-xl mt-2 mb-2'>No music uploaded yet</p>
       ) : (
-        <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
+        <div className='grid grid-cols-2 md:grid-cols-3 gap-1'>
           {userMusic?.map(m => (
             <div
               key={m._id}
-              className='bg-[#070a11ec]  max-w-80 max-h-150 p-3 rounded-lg shadow-md'
+              className='bg-[#070a11ec]  max-w-80 max-h-150 p-3 shadow-md'
             >
               <button
                 onClick={() => {

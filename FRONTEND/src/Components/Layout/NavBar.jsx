@@ -64,7 +64,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className='bg-[#111827] p-3 sticky -top-0.5 z-10 flex items-center justify-around gap-2'>
+      <div className='bg-[#1f232e] p-3 sticky -top-0.5 z-10 flex items-center justify-around gap-2'>
         <h1 className='bg-blue-300 py-2 px-4 rounded-xl font-semibold'>
           MusicHub
         </h1>
