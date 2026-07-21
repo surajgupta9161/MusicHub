@@ -55,7 +55,7 @@ const MyMusic = () => {
                   setSelectedMusic(m)
                   setOpenEdit(true)
                 }}
-                className='px-3 py-1.5 text-sm rounded-md border border-zinc-600 bg-zinc-900 text-zinc-100 hover:bg-zinc-800 hover:border-zinc-400 transition-all duration-200 cursor-pointer'
+                className='px-2 py-1 text-sm rounded-md border border-zinc-600 bg-zinc-900 text-zinc-100 hover:bg-zinc-800 hover:border-zinc-400 transition-all duration-200 cursor-pointer'
               >
                 Edit
               </button>
