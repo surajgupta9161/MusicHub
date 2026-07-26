@@ -25,8 +25,8 @@ const UpdateMusic = ({ music, onClose }) => {
         prev.map(post => (post._id === music._id ? { ...post, title } : post))
       )
 
-      toast.success(res.data.message, { id: toastId })
-      // await getAllPosts()
+      toast.success(res.data.message, { id: toastId, duration: 3000 })
+
       onClose()
     } catch (err) {
       console.log(err.message)

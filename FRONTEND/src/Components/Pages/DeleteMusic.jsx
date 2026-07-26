@@ -28,7 +28,6 @@ const DeleteMusic = ({ musicId, onDelete }) => {
             <button
               onClick={async () => {
                 toast.dismiss(toastId)
-
                 try {
                   const { data } = await axios.delete(
                     `${serverUrl}/api/auth/deleteMusic/${musicId}`,
@@ -43,7 +42,7 @@ const DeleteMusic = ({ musicId, onDelete }) => {
 
                   toast.success(data.message, {
                     id: 'delete-success',
-                    duration: 8000
+                    duration: 3000
                   })
                   toast.dismiss()
                 } catch (error) {

@@ -45,19 +45,6 @@ const Createmusic = () => {
       formData.append('image', fileInput) // backend expects 'image'
       formData.append('title', title)
 
-      // await axios.post(`${serverUrl}/api/auth/music`, formData, {
-      //   withCredentials: true,
-      //   headers: {
-      //     'Content-Type': 'multipart/form-data'
-      //   },
-      //   onUploadProgress: progressEvent => {
-      //     let prcent = Math.round(
-      //       (progressEvent.loaded * 100) / progressEvent.total
-      //     )
-      //     setIsUploadProgress(prcent)
-      //   }
-      // })
-
       const { data } = await axios.post(
         `${serverUrl}/api/auth/music`,
         formData,
@@ -74,11 +61,6 @@ const Createmusic = () => {
           }
         }
       )
-
-      // toast.success('✅ Video uploaded successfully', { id: toastId })
-      // await getAllPosts()
-      // setIsUploading(false)
-      // Navigate('/')
 
       setPosts(prev => [data.music, ...prev])
 
