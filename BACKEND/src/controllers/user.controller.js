@@ -94,7 +94,10 @@ const musicCreate = async (req, res) => {
         return res.status(403).json({ message: 'Only Artist can Create Music' })
       }
     } catch (error) {
-      return res.status(403).json({ message: 'Invalid Token' })
+      console.log(error.message)
+      return res
+        .status(403)
+        .json({ message: 'Invalid Token', error: error.message })
     }
 
     //Creating Music Logic Here
@@ -114,19 +117,33 @@ const musicCreate = async (req, res) => {
           artist: decoded.id,
           image: response.url
         })
-        console.log(music)
+        const newMusic = await Music.findById(music._id).populate(
+          'artist',
+          'username'
+        )
+        return res.status(201).json({
+          message: 'Music Uploaded Successfully',
+          music: newMusic
+        })
       } catch (error) {
+        console.log(error.message)
         return res.status(500).json({ message: 'Music Uploading Error' })
       }
     } catch (error) {
-      return res.status(500).json({ message: 'Image Uploading Error' })
+      console.log(error.message)
+      return res
+        .status(500)
+        .json({ message: 'Image Uploading Error', error: error.message })
     }
 
     res
       .status(201)
       .json({ message: 'Music Created Successfully', role: decoded.role })
   } catch (error) {
-    return res.status(500).json({ message: 'Music Creating Error' })
+    console.log(error.message)
+    return res
+      .status(500)
+      .json({ message: 'Music Creating Error', error: error.message })
   }
 }
 
@@ -136,7 +153,9 @@ const musicGet = async (req, res) => {
     // console.log(musics)
     res.status(200).json({ message: 'Music Fetch Successfully', musics })
   } catch (error) {
-    return res.status(500).json({ message: 'Music Fetching Error' })
+    return res
+      .status(500)
+      .json({ message: 'Music Fetching Error', error: error.message })
   }
 }
 
@@ -158,7 +177,9 @@ const getUser = async (req, res) => {
     }
     return res.status(200).json({ message: 'User Fetch Successfully', user })
   } catch (error) {
-    return res.status(500).json({ message: 'User Fetching Error' })
+    return res
+      .status(500)
+      .json({ message: 'User Fetching Error', error: error.message })
   }
 }
 

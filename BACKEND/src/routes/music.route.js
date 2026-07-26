@@ -15,7 +15,7 @@ router.get('/allMusic', Controller.musicGet)
 router.patch('/editMusic/:id', isAuth, musicController.updateMusic)
 
 /**
- * -PATCH /api/auth/deleteMusic/:id
+ * -Delete /api/auth/deleteMusic/:id
  */
 router.delete('/deleteMusic/:id', isAuth, musicController.deleteMusic)
 
