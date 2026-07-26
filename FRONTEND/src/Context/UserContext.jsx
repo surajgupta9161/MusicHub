@@ -53,18 +53,18 @@ export const GetUser = ({ children }) => {
       setPosts(res.data.musics)
       toast.dismiss(loadingToast)
       // ✅ Data aa gaya → toast
-      setTimeout(() => {
-        toast('Some videos may load slowly due to bandwidth issues 📡', {
-          duration: 4000,
-          icon: '🎧',
-          style: {
-            background: '#020617',
-            color: '#38fdf8',
-            border: '1px solid #38fdf8',
-            fontWeight: '600'
-          }
-        })
-      }, 3000)
+      // setTimeout(() => {
+      //   toast('Some videos may load slowly due to bandwidth issues 📡', {
+      //     duration: 4000,
+      //     icon: '🎧',
+      //     style: {
+      //       background: '#020617',
+      //       color: '#38fdf8',
+      //       border: '1px solid #38fdf8',
+      //       fontWeight: '600'
+      //     }
+      //   })
+      // }, 3000)
 
       setPostsLoaded(true)
       setIsLoading(false)
@@ -126,7 +126,8 @@ export const GetUser = ({ children }) => {
         postsLoaded,
         isLoading,
         userMusic,
-        setPosts
+        setPosts,
+        getAllPosts
       }}
     >
       {children}

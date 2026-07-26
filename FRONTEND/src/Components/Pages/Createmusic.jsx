@@ -9,7 +9,7 @@ import { toast } from 'react-hot-toast'
 const Createmusic = () => {
   const Navigate = useNavigate()
   const [isUploading, setIsUploading] = useState(false)
-  const { serverUrl } = useContext(UserContext)
+  const { serverUrl, setPosts } = useContext(UserContext)
   const [isUploadProgress, setIsUploadProgress] = useState(false)
 
   const MAX_SIZE = 20 * 1024 * 1024 // 20MB
@@ -45,25 +45,53 @@ const Createmusic = () => {
       formData.append('image', fileInput) // backend expects 'image'
       formData.append('title', title)
 
-      await axios.post(`${serverUrl}/api/auth/music`, formData, {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-        onUploadProgress: progressEvent => {
-          let prcent = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          )
-          setIsUploadProgress(prcent)
+      // await axios.post(`${serverUrl}/api/auth/music`, formData, {
+      //   withCredentials: true,
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data'
+      //   },
+      //   onUploadProgress: progressEvent => {
+      //     let prcent = Math.round(
+      //       (progressEvent.loaded * 100) / progressEvent.total
+      //     )
+      //     setIsUploadProgress(prcent)
+      //   }
+      // })
+
+      const { data } = await axios.post(
+        `${serverUrl}/api/auth/music`,
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          onUploadProgress: progressEvent => {
+            let prcent = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            )
+            setIsUploadProgress(prcent)
+          }
         }
+      )
+
+      // toast.success('✅ Video uploaded successfully', { id: toastId })
+      // await getAllPosts()
+      // setIsUploading(false)
+      // Navigate('/')
+
+      setPosts(prev => [data.music, ...prev])
+
+      toast.success('✅ Video uploaded successfully', {
+        id: toastId
       })
 
-      toast.success('✅ Video uploaded successfully', { id: toastId })
       setIsUploading(false)
+
       Navigate('/')
     } catch (error) {
       setIsUploading(false)
-      toast.success(error?.response?.data?.message || 'Upload failed', {
+      toast.error(error?.response?.data?.message || 'Upload failed', {
         id: toastId
       })
     }

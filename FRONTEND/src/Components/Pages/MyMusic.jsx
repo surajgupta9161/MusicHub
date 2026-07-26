@@ -1,6 +1,7 @@
 import { useContext, useState, useRef } from 'react'
 import { UserContext } from '../../Context/UserContext'
 import UpdateMusic from './UpdateMusic'
+import DeleteMusic from './DeleteMusic'
 
 const MyMusic = () => {
   const { user, userMusic } = useContext(UserContext)
@@ -59,6 +60,7 @@ const MyMusic = () => {
               >
                 Edit
               </button>
+              <DeleteMusic musicId={m._id} />
               {/* 🎬 Video */}
               <video
                 ref={el => (videoRefs.current[m._id] = el)}
