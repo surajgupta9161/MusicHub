@@ -106,8 +106,10 @@ const musicCreate = async (req, res) => {
       if (!req.file) {
         return res.status(400).json({ message: 'Video file is required' })
       }
+      console.log(req.file)
+      console.log(req.file?.buffer?.length)
       const response = await uploadImage(req.file.buffer)
-      console.log(response.url)
+      console.log('Buffer from imagekit res ', response)
       if (!title) {
         return res.status(400).json({ message: 'Title are required' })
       }
@@ -126,14 +128,14 @@ const musicCreate = async (req, res) => {
           music: newMusic
         })
       } catch (error) {
-        console.log(error.message)
-        return res.status(500).json({ message: 'Music Uploading Error' })
+        console.log(error)
+        return res.status(500).json({ message: 'Music Uploading error ' })
       }
     } catch (error) {
-      console.log(error.message)
+      console.log(error)
       return res
         .status(500)
-        .json({ message: 'Image Uploading Error', error: error.message })
+        .json({ message: 'Video Uploading Error', error: error })
     }
 
     res
