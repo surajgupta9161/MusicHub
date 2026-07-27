@@ -1,13 +1,21 @@
 const express = require('express')
 const router = express.Router()
-const Controller = require('../controllers/user.controller')
+// const Controller = require('../controllers/music.controller')
 const upload = require('../middleware/multer')
 const musicController = require('../controllers/music.controller')
 const isAuth = require('../middleware/isAuth')
 
-router.post('/music', upload.single('image'), Controller.musicCreate)
+/**
+ * -GET /api/auth/music
+ */
 
-router.get('/allMusic', Controller.musicGet)
+router.post('/music', upload.single('image'), musicController.musicCreate)
+
+/**
+ * -GET /api/auth/allMusic
+ */
+
+router.get('/allMusic', musicController.musicGet)
 
 /**
  * -PATCH /api/auth/editMusic/:id
