@@ -35,7 +35,8 @@ const Signup = () => {
         setIsSignup(false)
         // alert(response?.data?.message)
         toast.success(response?.data?.message || 'Signup Successfull', {
-          id: toastId
+          id: toastId,
+          duration: 2000
         })
         setUser(response.data)
         setIsLogin(true)
@@ -46,7 +47,8 @@ const Signup = () => {
       console.log(error?.response?.data?.message) // 👈 backend message
       // alert(error?.response?.data?.message)
       toast.error(error?.response?.data?.message || 'Signup Failed', {
-        id: toastId
+        id: toastId,
+        duration: 2000
       })
     }
   }

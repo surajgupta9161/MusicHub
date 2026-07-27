@@ -56,8 +56,10 @@ const NavBar = () => {
     } else {
       toast.dismiss(toastId)
       toast.success('Welcome Artist 🎵', {
-        id: toastId
+        id: toastId,
+        duration: 3000
       })
+      // toast.dismiss(toastId)
       navigate('/createmusic')
     }
   }

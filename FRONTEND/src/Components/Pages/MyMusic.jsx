@@ -41,7 +41,7 @@ const MyMusic = () => {
 
   return (
     <div>
-      <h2 className='text-xl mt-3 mb-2'>My Uploads</h2>
+      <h2 className='text-xl mt-3 mb-2'>------------------------</h2>
       {userMusic?.length === 0 ? (
         <p className='text-xl mt-2 mb-2'>No music uploaded yet</p>
       ) : (

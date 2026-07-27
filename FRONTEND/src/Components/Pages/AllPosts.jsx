@@ -10,21 +10,6 @@ const AllPosts = () => {
   const [currentPlaying, setCurrentPlaying] = useState(null)
   const { isLoading, posts } = useContext(UserContext)
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${serverUrl}/api/auth/allMusic`)
-  //     .then(res => {
-  //       setPosts(res.data.musics)
-  //       setIsLoading(false)
-  //     })
-  //     .catch(err => {
-  //       setIsLoading(false)
-  //       return err.response
-  //         ? alert(err.response.data.message)
-  //         : alert('Error fetching music')
-  //     })
-  // }, [])
-
   const togglePlay = id => {
     const video = videoRefs.current[id]
     if (!video) return

@@ -31,7 +31,8 @@ const UpdateMusic = ({ music, onClose }) => {
     } catch (err) {
       console.log(err.message)
       toast.error(err.response?.data?.message || 'Update failed 🙁', {
-        id: toastId
+        id: toastId,
+        duration: 3000
       })
     }
   }

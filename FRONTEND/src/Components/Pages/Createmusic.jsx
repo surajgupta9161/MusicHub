@@ -10,7 +10,7 @@ const Createmusic = () => {
   const Navigate = useNavigate()
   const [isUploading, setIsUploading] = useState(false)
   const { serverUrl, setPosts } = useContext(UserContext)
-  const [isUploadProgress, setIsUploadProgress] = useState(false)
+  const [isUploadProgress, setIsUploadProgress] = useState(0)
 
   const MAX_SIZE = 20 * 1024 * 1024 // 20MB
 
@@ -27,18 +27,25 @@ const Createmusic = () => {
 
       if (!fileInput) {
         setIsUploading(false)
-        return toast.error('Please select a video file', { id: toastId })
+        return toast.error('Please select a video file', {
+          id: toastId,
+          duration: 2000
+        })
       }
 
       if (!fileInput.type.startsWith('video/')) {
         setIsUploading(false)
-        return toast.error('Only Video file allowed', { id: toastId })
+        return toast.error('Only Video file allowed', {
+          id: toastId,
+          duration: 2000
+        })
       }
 
       if (fileInput.size > MAX_SIZE) {
         setIsUploading(false)
         return toast.error(' Video size must be less than 20MB', {
-          id: toastId
+          id: toastId,
+          duration: 3000
         })
       }
 
@@ -55,8 +62,9 @@ const Createmusic = () => {
           },
           onUploadProgress: progressEvent => {
             let prcent = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
+              (progressEvent.loaded * 99) / progressEvent.total
             )
+
             setIsUploadProgress(prcent)
           }
         }
@@ -65,7 +73,8 @@ const Createmusic = () => {
       setPosts(prev => [data.music, ...prev])
 
       toast.success('✅ Video uploaded successfully', {
-        id: toastId
+        id: toastId,
+        duration: 2000
       })
 
       setIsUploading(false)
@@ -74,14 +83,15 @@ const Createmusic = () => {
     } catch (error) {
       setIsUploading(false)
       toast.error(error?.response?.data?.message || 'Upload failed', {
-        id: toastId
+        id: toastId,
+        duration: 3000
       })
     }
   }
 
   return (
     <div>
-      {isUploading && <VideoUploader process={isUploadProgress} />}
+      {isUploading && <VideoUploader isUploadProgress={isUploadProgress} />}
       <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
         <div className='bg-white w-[90%] max-w-md p-6 rounded-xl relative'>
           <button

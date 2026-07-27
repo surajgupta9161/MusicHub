@@ -38,7 +38,8 @@ const Login = () => {
         toast.dismiss(toastId)
         // ✅ success toast (same toast update)
         toast.success(resposne.data.message || 'Login successful 🎉', {
-          id: toastId
+          id: toastId,
+          duration: 2000
         })
         // alert(resposne.data.message)
         Navigate('/')
@@ -50,7 +51,8 @@ const Login = () => {
       // alert(err.response.data.message)
       // ❌ loading toast close + error toast
       toast.error(err.response?.data?.message || 'Login failed ❌', {
-        id: toastId
+        id: toastId,
+        duration: 2000
       })
     }
   }
