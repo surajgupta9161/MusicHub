@@ -1,19 +1,24 @@
 # 🎵 MusicHub
 
-MusicHub is a full-stack MERN CRUD web application where users can create an account, log in, and upload video content similar to Instagram (video-only platform). The project is currently under active development with role-based access control features being implemented.
+MusicHub is a **full-stack MERN Role-Based Music Streaming Platform** where **Artists** can upload, edit, and delete their own music/videos, while **Users** can securely browse and watch uploaded content.
+
+The application uses **JWT Authentication**, **Role-Based Authorization**, **MongoDB**, and a **responsive React frontend** to provide a secure and smooth user experience.
 
 ---
 
 ## 🚀 Features
 
 - 🔐 User Registration & Login
-- 🎥 Video Upload (Available for all authenticated users)
+- 🎭 Role-Based Access Control (Artist / User)
+- 🎥 Artists can Upload Music/Videos
+- ✏️ Artists can Edit their own uploaded content
+- 🗑️ Artists can Delete their own uploaded content
+- 👀 Users can Browse & Watch Videos
 - 📂 Fetch All Uploaded Videos
 - 🌐 Global State Management using Context API
-- 🔒 Protected Routes using JWT
-- 🎨 Responsive UI with Tailwind CSS
-- 🚧 Role-Based Access Control (Artist / User) – In Progress
-- 🚧 Update & Delete features – In Progress
+- 🔒 Protected Routes using JWT Authentication
+- 🎨 Responsive UI built with Tailwind CSS
+- ⚡ Improved UI & Better User Experience
 
 ---
 
@@ -36,88 +41,69 @@ MusicHub is a full-stack MERN CRUD web application where users can create an acc
 ### Authentication & Security
 
 - JSON Web Token (JWT)
-- Role-Based Access Control (RBAC) – In Development
+- Role-Based Access Control (RBAC)
+- Protected Routes
+- Authorization for Edit & Delete Operations
+
+### Media Storage
+
+- ImageKit
 
 ---
 
 ## 📡 API Routes
 
-### 🔐 Authentication Routes
+### 🔐 Authentication
 
-POST /api/auth/register  
+```
+POST /api/auth/register
 POST /api/auth/login
+GET  /api/auth/getuser
+```
 
-### 🎵 Music Routes
+### 🎵 Music
 
-POST /api/auth/createmusic  
-GET /api/auth/getMusics
-
-🚧 Under Development:
-PUT /api/auth/updatemusic/:id  
-DELETE /api/auth/deletemusic/:id
+```
+POST   /api/auth/music
+GET    /api/auth/allMusic
+PATCH  /api/auth/editMusic/:id
+DELETE /api/auth/deleteMusic/:id
+```
 
 ---
 
 ## 📁 Project Structure
 
-MusicHub  
-│  
-├── Backend  
-│ ├── src  
-│ │ ├── controllers
-| | ├── DB
-│ │ ├── models  
-│ │ ├── routes  
-│ │ ├── middleware  
-│ │ └── services  
-│ │  
-│ ├── server.js  
-│ └── .env  
-│  
-├──FRONTEND/
-| │
-| ├── dist/
-| ├── node_modules/
-| ├── public/
-| │
-| ├── src/
-| │ │
-| │ ├── Assets/
-| │ │
-| │ ├── Components/
-| │ │ │
-| │ │ ├── Layout/
-| │ │ │ └── NavBar.jsx
-| │ │ │
-| │ │ ├── Loader/
-| │ │ │ ├── LogLoader.css
-| │ │ │ ├── LogLoader.jsx
-| │ │ │ ├── VideoUploader.css
-| │ │ │ └── VideoUploader.jsx
-| │ │ │
-| │ │ ├── PageNotFound/
-| │ │ │ └── NotFound.jsx
-| │ │ │
-| │ │ └── Pages/
-| │ │ ├── AllPosts.jsx
-| │ │ ├── Createmusic.jsx
-| │ │ ├── Login.jsx
-| │ │ ├── MyMusic.jsx
-| │ │ ├── Profile.css
-| │ │ ├── Profile.jsx
-| │ │ └── Signup.jsx
-| │ │
-| │ ├── Context/
-| │ │ └── UserContext.jsx
-| │ │
-| │ ├── Utils/
-| │ │ └── ImageKitError.js
-| │ │
-| │ ├── App.jsx # Main App component
-| │ ├── index.css # Global styles
-| │ └── main.jsx # App entry point
-| │
-└── README.md # Project documentation
+```
+MusicHub
+│
+├── backend
+│   ├── src
+│   │   ├── controllers
+│   │   ├── DB
+│   │   ├── middleware
+│   │   ├── models
+│   │   ├── routes
+│   │   └── services
+│   │
+│   ├── server.js
+│   └── .env
+│
+├── frontend
+│   ├── public
+│   ├── src
+│   │   ├── Assets
+│   │   ├── Components
+│   │   ├── Context
+│   │   ├── Utils
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   │
+│   └── package.json
+│
+└── README.md
+```
 
 ---
 
@@ -125,61 +111,80 @@ MusicHub
 
 ### 1️⃣ Clone Repository
 
+```bash
 git clone https://github.com/surajgupta9161/MusicHub.git
-
----
+```
 
 ### 2️⃣ Backend Setup
 
-cd backend  
+```bash
+cd backend
 npm install
+```
 
-Create `.env` file inside backend folder:
+Create a `.env` file inside the backend folder.
 
-PORT=3000  
-MONGO_URI=your_mongodb_connection_string  
+```env
+PORT=3000
+MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
+```
 
-Run backend server:
+Run the backend server.
 
-nodemon server.js
+```bash
+npm run dev
+```
 
 ---
 
 ### 3️⃣ Frontend Setup
 
-cd frontend  
+```bash
+cd frontend
 npm install
-
-Run frontend development server:
-
 npm run dev
+```
 
 ---
 
 ## 🔒 Authentication Flow
 
-- Users can register and log in.
-- JWT token is generated after login.
+- Users can register and log in securely.
+- JWT tokens are generated after successful login.
 - Context API manages authentication state globally.
-- Protected routes verify token before allowing video upload.
+- Protected routes verify authentication before allowing access.
+- Artists can upload, edit, and delete only their own music/videos.
+- Users can browse and watch uploaded content.
 
 ---
 
-## 🚧 Project Status
+## 🚀 Latest Updates
 
-This project is under active development.
+- ✅ Added **Edit Music** functionality for artists.
+- ✅ Added **Delete Music** functionality with proper authorization.
+- ✅ Improved the overall UI for a cleaner and smoother experience.
+- ✅ Enhanced CRUD workflow and user interactions.
+- ✅ Better authorization and protected API handling.
 
-- Role-Based Access Control (Artist/User) is being implemented.
-- Update and Delete functionalities are in progress.
+---
+
+## 🌐 Live Demo
+
+**Live Website:**  
+https://musichub-2.onrender.com/
+
+**GitHub Repository:**  
+https://github.com/surajgupta9161/MusicHub
 
 ---
 
 ## 👨‍💻 Author
 
-Suraj Gupta  
+**Suraj Gupta**
+
 GitHub: https://github.com/surajgupta9161
 
 ---
 
-⭐ If you like this project, consider giving it a star!
+⭐ If you like this project, don't forget to **Star** the repository!
